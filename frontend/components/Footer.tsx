@@ -16,7 +16,7 @@ export default function Footer() {
           <Link href="/assistant" className="hover:text-teal-700">Travel Assistant</Link>
           <Link href="/chat" className="hover:text-teal-700">Chat</Link>
         </div>
-        <p>© 2026 KelanaAI · AI Native Software Engineer Bootcamp</p>
+        <p>© 2026 Jalan-Jalan AI · AI Native Software Engineer Bootcamp</p>
       </div>
     </footer>
   );

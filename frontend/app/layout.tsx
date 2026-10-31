@@ -13,11 +13,11 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: { default: "KelanaAI — AI Travel Planner", template: "%s · KelanaAI" },
+  title: { default: "Jalan-Jalan AI — AI Travel Planner", template: "%s · Jalan-Jalan AI" },
   description:
-    "Plan personalized trips with AI. KelanaAI generates itineraries with Amazon Bedrock, answers travel questions from trusted documents and remembers your conversations.",
+    "Plan personalized trips with AI. Jalan-Jalan AI generates itineraries with Amazon Bedrock, answers travel questions from trusted documents and remembers your conversations.",
   openGraph: {
-    title: "KelanaAI — AI Travel Planner",
+    title: "Jalan-Jalan AI — AI Travel Planner",
     description: "Personalized AI itineraries, a grounded travel assistant and conversational trip planning.",
     type: "website",
   },

@@ -27,7 +27,7 @@ const STARTERS = [
 function TypingIndicator() {
   return (
     <div className="flex justify-start">
-      <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm bg-white px-4 py-3 shadow-sm ring-1 ring-slate-200" aria-label="KelanaAI is typing">
+      <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm bg-white px-4 py-3 shadow-sm ring-1 ring-slate-200" aria-label="Jalan-Jalan AI is typing">
         {[0, 1, 2].map((i) => (
           <span key={i} className="typing-dot h-2 w-2 rounded-full bg-teal-500" style={{ animationDelay: `${i * 0.15}s` }} />
         ))}
@@ -255,8 +255,8 @@ function Chat() {
             ☰ Chats
           </button>
           <div className="min-w-0">
-            <h1 className="truncate font-semibold text-slate-900">{activeConversation?.title ?? "KelanaAI Chat"}</h1>
-            <p className="text-xs text-slate-500">KelanaAI remembers this conversation — ask follow-up questions naturally.</p>
+            <h1 className="truncate font-semibold text-slate-900">{activeConversation?.title ?? "Jalan-Jalan AI Chat"}</h1>
+            <p className="text-xs text-slate-500">Jalan-Jalan AI remembers this conversation — ask follow-up questions naturally.</p>
           </div>
         </div>
 
@@ -267,7 +267,7 @@ function Chat() {
             <div className="mx-auto max-w-xl py-10 text-center">
               <p className="text-4xl" aria-hidden>💬</p>
               <h2 className="mt-3 text-xl font-semibold text-slate-900">Start a conversation</h2>
-              <p className="mt-1 text-slate-500">Ask KelanaAI anything about your next trip.</p>
+              <p className="mt-1 text-slate-500">Ask Jalan-Jalan AI anything about your next trip.</p>
               <div className="mt-6 flex flex-col gap-2">
                 {STARTERS.map((starter) => (
                   <button key={starter} type="button" onClick={() => void handleSend(starter)}

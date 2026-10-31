@@ -84,7 +84,7 @@ def retrieve_local(question: str, top_k: int = 3) -> list[Chunk]:
 
 
 RAG_SYSTEM_PROMPT = (
-    "You are KelanaAI Travel Assistant. Answer the traveler's question using ONLY the "
+    "You are Jalan-Jalan AI Travel Assistant. Answer the traveler's question using ONLY the "
     "provided context from trusted travel documents. If the context does not contain "
     "the answer, say you could not find it in the knowledge base and suggest checking an "
     "official source. Be concise, answer in the user's language, and use Markdown."
@@ -98,7 +98,7 @@ def _ask_local(question: str) -> dict:
     )
     if not chunks:
         return {
-            "answer": "I could not find information about that in the KelanaAI knowledge base. "
+            "answer": "I could not find information about that in the Jalan-Jalan AI knowledge base. "
             "Please check an official source such as the embassy or airline website.",
             "sources": [],
             "mode": "local",

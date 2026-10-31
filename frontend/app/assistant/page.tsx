@@ -44,7 +44,7 @@ function Assistant() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
-      <h1 className="text-3xl font-bold text-slate-900">KelanaAI Travel Assistant</h1>
+      <h1 className="text-3xl font-bold text-slate-900">Jalan-Jalan AI Travel Assistant</h1>
       <p className="text-slate-500">Ask factual travel questions — answers are grounded in trusted travel documents.</p>
 
       <form
@@ -94,7 +94,7 @@ function Assistant() {
             {item.sources.length > 0 && (
               <div className="mt-4 border-t border-slate-100 pt-3">
                 <p className="mb-2 text-xs font-semibold tracking-wide text-slate-500 uppercase">
-                  Sources {item.mode === "knowledge_base" ? "· Amazon Bedrock Knowledge Base" : "· KelanaAI knowledge library"}
+                  Sources {item.mode === "knowledge_base" ? "· Amazon Bedrock Knowledge Base" : "· Jalan-Jalan AI knowledge library"}
                 </p>
                 <ul className="flex flex-wrap gap-2">
                   {item.sources.map((source) => (

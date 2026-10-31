@@ -18,7 +18,7 @@ const FEATURES = [
   { icon: "✨", title: "AI itineraries", text: "Day-by-day plans with morning, afternoon and evening activities from Amazon Bedrock." },
   { icon: "🧮", title: "Smart budgeting", text: "Instant trip category, daily budget, season and transport recommendation." },
   { icon: "📚", title: "Trusted answers", text: "Ask about visas, medication or baggage — answers grounded in real travel documents." },
-  { icon: "💬", title: "Remembers context", text: "Chat naturally. Ask “what about Day 2?” and KelanaAI knows what you mean." },
+  { icon: "💬", title: "Remembers context", text: "Chat naturally. Ask “what about Day 2?” and Jalan-Jalan AI knows what you mean." },
 ];
 
 function Hero() {
@@ -34,9 +34,9 @@ function Hero() {
       />
       <div className="relative mx-auto max-w-6xl px-4 py-14 md:py-20">
         <p className="mb-3 inline-flex rounded-full bg-white/15 px-3 py-1 text-sm font-medium">🌏 AI-powered travel planner</p>
-        <h1 className="max-w-3xl text-4xl font-bold tracking-tight md:text-5xl">Plan your next adventure with KelanaAI</h1>
+        <h1 className="max-w-3xl text-4xl font-bold tracking-tight md:text-5xl">Plan your next adventure with Jalan-Jalan AI</h1>
         <p className="mt-4 max-w-2xl text-lg text-teal-50">
-          Tell us where, how long and your budget. KelanaAI builds a personalized itinerary in seconds and keeps every trip in your dashboard.
+          Tell us where, how long and your budget. Jalan-Jalan AI builds a personalized itinerary in seconds and keeps every trip in your dashboard.
         </p>
       </div>
     </section>

@@ -23,9 +23,9 @@ const PRINCIPLES = [
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
-      <h1 className="text-4xl font-bold text-slate-900">About KelanaAI</h1>
+      <h1 className="text-4xl font-bold text-slate-900">About Jalan-Jalan AI</h1>
       <p className="mt-4 text-lg text-slate-600">
-        KelanaAI is an AI-powered travel planner built during the AI Native Software Engineer Bootcamp. It turns a
+        Jalan-Jalan AI is an AI-powered travel planner built during the AI Native Software Engineer Bootcamp. It turns a
         destination, number of days, budget and travel style into a personalized itinerary, answers factual travel
         questions from trusted documents, and holds natural multi-turn conversations.
       </p>

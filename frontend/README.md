@@ -1,4 +1,4 @@
-# KelanaAI Frontend (Next.js)
+# Jalan-Jalan AI Frontend (Next.js)
 
 ```bash
 npm install

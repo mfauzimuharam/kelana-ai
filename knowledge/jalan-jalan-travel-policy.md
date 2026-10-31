@@ -1,8 +1,8 @@
-# KelanaAI Travel Partner Policy (Demo Company Document)
+# Jalan-Jalan AI Travel Partner Policy (Demo Company Document)
 
 _This is a fictional company policy used to demonstrate that RAG answers come from private documents._
 
-## Baggage allowance on KelanaAI partner packages
+## Baggage allowance on Jalan-Jalan AI partner packages
 - **Backpacker packages:** 7 kg cabin baggage only; checked baggage can be added for USD 25 per 20 kg.
 - **Standard packages:** 7 kg cabin baggage plus **20 kg** checked baggage.
 - **Luxury packages:** 10 kg cabin baggage plus **30 kg** checked baggage and priority boarding.

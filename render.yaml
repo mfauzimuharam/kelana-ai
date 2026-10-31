@@ -1,9 +1,9 @@
-# Render Blueprint for the KelanaAI backend (Session 11).
+# Render Blueprint for the Jalan-Jalan AI backend (Session 11).
 # Render dashboard → New → Blueprint → select this repo. Secrets marked sync:false
 # are entered in the dashboard and never stored in Git.
 services:
   - type: web
-    name: kelana-ai-api
+    name: jalan-jalan-ai-api
     runtime: python
     rootDir: backend
     plan: free
@@ -26,9 +26,9 @@ services:
         sync: false
       - key: JWT_SECRET_KEY
         generateValue: true
-      - key: CORS_ORIGINS # e.g. https://kelana-ai.vercel.app
+      - key: CORS_ORIGINS # e.g. https://jalan-jalan-ai.vercel.app
         sync: false
-      - key: CORS_ORIGIN_REGEX # optional, e.g. ^https://kelana-ai.*\.vercel\.app$
+      - key: CORS_ORIGIN_REGEX # optional, e.g. ^https://jalan-jalan-ai.*\.vercel\.app$
         sync: false
       - key: AI_MOCK_MODE
         value: "false"

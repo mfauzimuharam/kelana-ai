@@ -7,7 +7,7 @@ export default function Logo({ className = "" }: { className?: string }) {
         <path d="m15.3 19.4 9.7-8.4" stroke="#0d9488" strokeWidth="1.4" />
       </svg>
       <span className="text-lg font-bold tracking-tight text-slate-900">
-        Kelana<span className="text-teal-600">AI</span>
+        Jalan-Jalan <span className="text-teal-600">AI</span>
       </span>
     </span>
   );

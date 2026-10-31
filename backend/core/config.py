@@ -20,7 +20,7 @@ def _database_url() -> str:
     url = os.getenv("DATABASE_URL", "").strip()
     if not url:
         # Zero-config fallback so the app still boots for quick local tries.
-        return f"sqlite:///{BACKEND_DIR / 'kelana_ai.db'}"
+        return f"sqlite:///{BACKEND_DIR / 'jalan_jalan_ai.db'}"
     # Neon / Render often hand out postgres:// or postgresql:// URLs.
     if url.startswith("postgres://"):
         url = "postgresql+psycopg2://" + url[len("postgres://"):]

@@ -1,4 +1,4 @@
-"""KelanaAI console app (Sessions 1-2): Trip Summary Generator.
+"""Jalan-Jalan AI console app (Sessions 1-2): Trip Summary Generator.
 
 Run:  python cli.py
 Presentation layer only — every decision comes from services/trip_service.py,
@@ -38,7 +38,7 @@ def ask_float(prompt: str, allow_zero: bool = False) -> float:
 
 def print_trip_summary(destination, country, days, budget, currency, travel_month, travel_style, total_cost):
     print("\n==================================")
-    print("KelanaAI Trip Summary")
+    print("Jalan-Jalan AI Trip Summary")
     print("==================================")
     print(f"Destination  : {destination}")
     print(f"Country      : {country}")

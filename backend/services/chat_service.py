@@ -19,7 +19,7 @@ def build_system_prompt(user_name: str, trips: list) -> str:
             f"{t.destination} ({t.days} days, {t.budget:,.0f} {t.currency}, {t.travel_style or 'general'})"
             for t in trips[:5]
         )
-        prompt += f"\nTheir saved KelanaAI trips: {summary}."
+        prompt += f"\nTheir saved Jalan-Jalan AI trips: {summary}."
     return prompt
 
 

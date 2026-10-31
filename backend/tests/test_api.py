@@ -6,7 +6,7 @@ TRIP = {"destination": "Japan", "days": 5, "budget": 2000, "travel_style": "Fami
 # ─── General & catalog ──────────────────────────────────────────────────────
 
 def test_home_and_health(client):
-    assert client.get("/").json() == {"message": "Welcome to KelanaAI"}
+    assert client.get("/").json() == {"message": "Welcome to Jalan-Jalan AI"}
     assert client.get("/health").json() == {"status": "OK"}
 
 
@@ -150,7 +150,7 @@ def test_assistant_answers_from_knowledge(client, alice):
     assert any(s["name"] == "visa-japan.md" for s in body["sources"])
     assert client.post("/api/v1/ask", json={"question": "baggage allowance standard package"}, headers=alice).json()[
         "sources"
-    ][0]["name"] == "kelana-travel-policy.md"
+    ][0]["name"] == "jalan-jalan-travel-policy.md"
 
 
 def test_assistant_requires_auth(client):

@@ -1,4 +1,4 @@
-"""KelanaAI REST API (FastAPI).
+"""Jalan-Jalan AI REST API (FastAPI).
 
 Run locally:  uvicorn main:app --reload      (from the backend/ folder)
 Swagger UI:   http://localhost:8000/docs
@@ -21,7 +21,7 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(
-    title="KelanaAI API",
+    title="Jalan-Jalan AI API",
     description="AI-powered travel planner — FastAPI + PostgreSQL + Amazon Bedrock.",
     version="1.0.0",
     lifespan=lifespan,
@@ -40,7 +40,7 @@ app.add_middleware(
 
 @app.get("/", tags=["General"])
 def home():
-    return {"message": "Welcome to KelanaAI"}
+    return {"message": "Welcome to Jalan-Jalan AI"}
 
 
 @app.get("/health", tags=["General"])

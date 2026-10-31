@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 # Configure before the app is imported: isolated SQLite DB and no real AWS calls.
-TEST_DB = Path(__file__).parent / "test_kelana.db"
+TEST_DB = Path(__file__).parent / "test_jalan_jalan.db"
 os.environ["DATABASE_URL"] = f"sqlite:///{TEST_DB}"
 os.environ["AI_MOCK_MODE"] = "true"
 os.environ["KNOWLEDGE_BASE_ID"] = ""

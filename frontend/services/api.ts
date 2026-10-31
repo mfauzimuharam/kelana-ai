@@ -1,7 +1,7 @@
 import { API_V1 } from "@/lib/config";
 
-const TOKEN_KEY = "kelana_token";
-const TOKEN_EVENT = "kelana-token-change";
+const TOKEN_KEY = "jalan_jalan_token";
+const TOKEN_EVENT = "jalan-jalan-token-change";
 
 // ─── Token storage (Session 8: JWT kept in localStorage) ───────────────────
 
@@ -80,7 +80,7 @@ export async function request<T>(path: string, options: RequestInit & { auth?: b
   try {
     response = await fetch(`${API_V1}${path}`, { ...init, headers: finalHeaders });
   } catch {
-    throw new ApiError("Cannot reach the KelanaAI server. Check your connection and try again.", 0);
+    throw new ApiError("Cannot reach the Jalan-Jalan AI server. Check your connection and try again.", 0);
   }
 
   if (response.status === 204) return undefined as T;

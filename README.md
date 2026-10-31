@@ -1,6 +1,6 @@
-# KelanaAI — AI-Powered Travel Planner
+# Jalan-Jalan AI — AI-Powered Travel Planner
 
-KelanaAI turns a destination, number of days, budget and travel style into a personalized
+Jalan-Jalan AI turns a destination, number of days, budget and travel style into a personalized
 day-by-day itinerary. It answers factual travel questions from trusted documents (RAG) and
 holds natural multi-turn conversations that remember context.
 
@@ -67,7 +67,7 @@ python -m venv .venv
 source .venv/bin/activate            # Windows: .venv\Scripts\activate
 pip install -r requirements-dev.txt
 cp .env.example .env                 # then fill in the values
-createdb kelana_ai                   # or create it in pgAdmin/DBeaver
+createdb jalan_jalan_ai                   # or create it in pgAdmin/DBeaver
 uvicorn main:app --reload
 ```
 
@@ -91,7 +91,7 @@ Open http://localhost:3000, register an account and generate your first trip.
 
 | Backend (`backend/.env`) | Description |
 | --- | --- |
-| `DATABASE_URL` | PostgreSQL URL, e.g. `postgresql+psycopg2://postgres:pass@localhost/kelana_ai` |
+| `DATABASE_URL` | PostgreSQL URL, e.g. `postgresql+psycopg2://postgres:pass@localhost/jalan_jalan_ai` |
 | `AWS_BEARER_TOKEN_BEDROCK` | Amazon Bedrock API key (read automatically by boto3) |
 | `AWS_REGION` / `MODEL_ID` | `ap-southeast-2` / `amazon.nova-lite-v1:0` |
 | `AI_MOCK_MODE` | `true` to skip Bedrock and return sample text |
