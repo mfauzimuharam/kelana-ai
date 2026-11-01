@@ -44,6 +44,14 @@ backend to allow the frontend URL in CORS.
 
 > Render free tier sleeps after 15 minutes idle — the first request afterwards takes ~30 s.
 
+### Option C — Vercel (free, no credit card)
+The backend can run as a Vercel Python function (`backend/vercel.json`).
+1. Vercel → **Add New → Project** → import the repo.
+2. **Project name:** `jalan-jalan-ai-api` · **Root Directory:** `backend` · Framework preset: **Other**.
+3. Environment variables: `DATABASE_URL` (Neon), `JWT_SECRET_KEY` (long random string),
+   `AI_MOCK_MODE=true` (until Bedrock works), `CORS_ORIGINS` (frontend URL, add it after step 3 below).
+4. Deploy, then open `https://<backend>.vercel.app/health` → `{"status":"OK"}`.
+
 ### Option B — FastAPI Cloud
 ```bash
 cd backend
@@ -69,7 +77,7 @@ Then set the same environment variables in the FastAPI Cloud dashboard and redep
 
 1. Create an S3 bucket (e.g. `jalan-jalan-travel-docs`) and upload the documents:
    ```bash
-   aws s3 sync knowledge/ s3://jalan-jalan-travel-docs/ --exclude "README.md"
+   aws s3 sync backend/knowledge/ s3://jalan-jalan-travel-docs/ --exclude "README.md"
    ```
 2. Bedrock console → **Knowledge Bases → Create** (`jalan-jalan-travel-kb`), data source = the S3 bucket,
    pick an embedding model, then **Sync**.

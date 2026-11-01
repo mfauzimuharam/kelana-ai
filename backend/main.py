@@ -14,9 +14,14 @@ from core import config
 from database import init_db
 
 
+# Create tables as soon as the app is imported. Serverless platforms (Vercel)
+# start and stop instances often and may not run lifespan events reliably.
+init_db()
+
+
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    init_db()  # create tables on startup
+    init_db()  # idempotent — safe to run again on startup
     yield
 
 

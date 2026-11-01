@@ -19,7 +19,7 @@ Next.js and Amazon Bedrock**.
 | Next.js UI: trip form, loading states, friendly errors | 6 |
 | Trip dashboard: history, detail pages, search, sort, pagination | 7 |
 | JWT authentication, bcrypt passwords, per-user data (403 on others' data), profile | 8 |
-| RAG travel assistant with source citations (Bedrock Knowledge Base or local `knowledge/`) | 9 |
+| RAG travel assistant with source citations (Bedrock Knowledge Base or local `backend/knowledge/`) | 9 |
 | Conversational chat with memory, sidebar, rename, auto-scroll, typing indicator, timestamps | 10 |
 | Deployment configs for Vercel, Render/FastAPI Cloud and Neon | 11 |
 
@@ -32,7 +32,7 @@ Browser
             ├─ JWT auth ─ services/auth_service.py
             ├─ Business rules ─ services/trip_service.py
             ├─ Amazon Bedrock ─ services/bedrock_service.py   (itineraries, chat)
-            ├─ RAG ─ services/kb_service.py                    (Knowledge Base / knowledge/)
+            ├─ RAG ─ services/kb_service.py                    (Knowledge Base / backend/knowledge/)
             ├─ Memory ─ services/chat_service.py               (prompt builder, trimming)
             └─ PostgreSQL (Neon) ─ users, trips, conversations, messages
 ```
@@ -45,13 +45,13 @@ kelana-ai/
 │   ├── schemas/        Pydantic request/response models
 │   ├── services/       business logic + AI integrations
 │   ├── core/config.py  settings from environment variables
+│   ├── knowledge/      RAG source documents
 │   ├── tests/          pytest suite
 │   ├── cli.py          console app (Sessions 1–2)
 │   └── main.py         FastAPI entry point
 ├── frontend/           Next.js app (app/, components/, services/, types/, lib/)
-├── knowledge/          RAG source documents
 ├── deployment/         deployment guide
-└── render.yaml         Render blueprint for the backend
+└── render.yaml         Render blueprint (alternative backend host)
 ```
 
 ## Run locally
@@ -95,7 +95,7 @@ Open http://localhost:3000, register an account and generate your first trip.
 | `AWS_BEARER_TOKEN_BEDROCK` | Amazon Bedrock API key (read automatically by boto3) |
 | `AWS_REGION` / `MODEL_ID` | `ap-southeast-2` / `amazon.nova-lite-v1:0` |
 | `AI_MOCK_MODE` | `true` to skip Bedrock and return sample text |
-| `KNOWLEDGE_BASE_ID` | Bedrock Knowledge Base ID; empty uses the local `knowledge/` folder |
+| `KNOWLEDGE_BASE_ID` | Bedrock Knowledge Base ID; empty uses the local `backend/knowledge/` folder |
 | `JWT_SECRET_KEY` | long random string used to sign tokens |
 | `CORS_ORIGINS` | allowed frontend origins (comma-separated) |
 
