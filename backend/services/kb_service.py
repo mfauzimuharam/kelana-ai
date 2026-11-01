@@ -5,7 +5,7 @@ Two retrieval backends, same response shape:
 1. Amazon Bedrock Knowledge Base (when KNOWLEDGE_BASE_ID is set) — uses the
    RetrieveAndGenerate API; AWS handles chunking, embeddings and retrieval.
 2. Local knowledge folder (fallback) — a simple keyword retriever over the
-   Markdown/TXT files in knowledge/, then Bedrock generates the answer from the
+   Markdown/TXT files in backend/knowledge/, then Bedrock generates the answer from the
    retrieved passages. Same "retrieve, then generate" idea, zero AWS setup.
 """
 

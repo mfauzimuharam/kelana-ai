@@ -7,7 +7,7 @@ Trusted travel documents used by the Travel Assistant (Session 9).
 - **Amazon Bedrock Knowledge Base:** upload this folder to S3 and sync the KB:
 
 ```bash
-aws s3 sync knowledge/ s3://jalan-jalan-travel-docs/ --exclude "README.md"
+aws s3 sync backend/knowledge/ s3://jalan-jalan-travel-docs/ --exclude "README.md"
 aws bedrock-agent start-ingestion-job --knowledge-base-id <KB_ID> --data-source-id <DS_ID>
 ```
 
