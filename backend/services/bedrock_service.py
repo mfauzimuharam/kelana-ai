@@ -39,19 +39,46 @@ def get_client():
     )
 
 
+GEO_PREFIXES = {"us": "us.", "eu": "eu.", "ap": "apac.", "ca": "us.", "sa": "us."}
+
+
+def inference_profile_id(model_id: str, region: str) -> str | None:
+    """amazon.nova-lite-v1:0 + ap-southeast-2 -> apac.amazon.nova-lite-v1:0.
+
+    Many regions only serve a model through a cross-region inference profile,
+    which is the model ID with a geography prefix.
+    """
+    if model_id.count(".") > 1 and model_id.split(".", 1)[0] in {"us", "eu", "apac", "global"}:
+        return None  # already a profile ID
+    prefix = GEO_PREFIXES.get(region.split("-", 1)[0])
+    return f"{prefix}{model_id}" if prefix else None
+
+
+def _converse_once(model_id: str, system: str, messages: list[dict], max_tokens: int) -> str:
+    response = get_client().converse(
+        modelId=model_id,
+        system=[{"text": system}],
+        messages=messages,
+        inferenceConfig={"maxTokens": max_tokens, "temperature": 0.7},
+    )
+    return response["output"]["message"]["content"][0]["text"]
+
+
 def converse(messages: list[dict], system: str = SYSTEM_PROMPT, max_tokens: int = 3000) -> str:
     """Send a list of {"role", "content": str} messages and return the reply text."""
     bedrock_messages = [
         {"role": m["role"], "content": [{"text": m["content"]}]} for m in messages
     ]
     try:
-        response = get_client().converse(
-            modelId=config.MODEL_ID,
-            system=[{"text": system}],
-            messages=bedrock_messages,
-            inferenceConfig={"maxTokens": max_tokens, "temperature": 0.7},
-        )
-        return response["output"]["message"]["content"][0]["text"]
+        try:
+            return _converse_once(config.MODEL_ID, system, bedrock_messages, max_tokens)
+        except ClientError as exc:
+            error = exc.response.get("Error", {})
+            profile_id = inference_profile_id(config.MODEL_ID, config.AWS_REGION)
+            # "Invocation ... with on-demand throughput isn't supported. Retry with an inference profile."
+            if error.get("Code") == "ValidationException" and "inference profile" in error.get("Message", "") and profile_id:
+                return _converse_once(profile_id, system, bedrock_messages, max_tokens)
+            raise
     except ClientError as exc:
         error = exc.response.get("Error", {})
         raise AIServiceError(
