@@ -1,0 +1,34 @@
+# Render Blueprint for the Jalan-Jalan AI backend (Session 11).
+# Render dashboard → New → Blueprint → select this repo. Secrets marked sync:false
+# are entered in the dashboard and never stored in Git.
+services:
+  - type: web
+    name: jalan-jalan-ai-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.1
+      - key: DATABASE_URL # Neon connection string
+        sync: false
+      - key: AWS_BEARER_TOKEN_BEDROCK # optional while AI_MOCK_MODE=true
+        sync: false
+      - key: AWS_REGION
+        value: ap-southeast-2
+      - key: MODEL_ID
+        value: amazon.nova-lite-v1:0
+      - key: KNOWLEDGE_BASE_ID # optional; empty = local knowledge/ folder
+        sync: false
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: CORS_ORIGINS # e.g. https://jalan-jalan-ai.vercel.app
+        sync: false
+      - key: CORS_ORIGIN_REGEX # optional, e.g. ^https://jalan-jalan-ai.*\.vercel\.app$
+        sync: false
+      - key: AI_MOCK_MODE # "true" = sample AI output; set "false" once Bedrock access works
+        value: "true"

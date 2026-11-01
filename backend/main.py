@@ -1,143 +1,55 @@
-# main.py
+"""Jalan-Jalan AI REST API (FastAPI).
 
-from services.trip_service import (
-    calculate_daily_budget, 
-    get_trip_category, 
-    get_recommended_places, 
-    get_recommended_transportation
-)
+Run locally:  uvicorn main:app --reload      (from the backend/ folder)
+Swagger UI:   http://localhost:8000/docs
+"""
 
-def print_trip_summary(destination, country, days, budget, currency, travel_month, travel_style, total_cost):
-    """Fungsi ini bertindak sebagai 'Presentation Layer' untuk menampilkan data ke pengguna."""
-    print("\n==================================")
-    print("KelanaAI Trip Summary")
-    print("==================================")
-    print(f"Destination  : {destination}")
-    print(f"Country      : {country}")
-    print(f"Days         : {days}")
-    print(f"Budget       : {budget} {currency}")
-    print(f"Travel Month : {travel_month}")
-    print(f"Style        : {travel_style}")
-    print(f"Total Cost   : {total_cost} {currency}")
-    
-    if total_cost > budget:
-        print("Status       : Budget exceeded! ⚠️")
-    else:
-        print("Status       : Budget is sufficient. ✅")
-    print("==================================\n")
-
-def main():
-    print("--- Masukkan Data Perjalanan ---")
-    # Menggunakan .strip().title() agar input "bali" menjadi "Bali" (sesuai dictionary di service)
-    destination = input("Destination (e.g., Bali, Tokyo) : ").strip().title()
-    country = input("Country : ")
-    days = int(input("Days : "))
-    budget = float(input("Budget : "))
-    currency = input("Currency (e.g., USD, IDR) : ").upper()
-    travel_month = input("Month of Travel (e.g., December) : ").title()
-    travel_style = input("Travel Style : ")
-
-    print("\n--- Masukkan Estimasi Biaya ---")
-    hotel_cost = float(input("Hotel Cost : "))
-    food_cost = float(input("Food Cost : "))
-    transport_cost = float(input("Transportation Cost : "))
-    misc_cost = float(input("Miscellaneous Cost : "))
-
-    total_cost = hotel_cost + food_cost + transport_cost + misc_cost
-
-    # ─── MENGHUBUNGI "BACKEND" (Memanggil Service) ──────────
-    # Menghitung budget harian
-    daily_budget = calculate_daily_budget(budget, days)
-    
-    # Menentukan kategori berdasarkan budget harian (Sesuai modifikasi cerdasmu)
-    category = get_trip_category(daily_budget) 
-    
-    # Menentukan transportasi berdasarkan kategori
-    transportation = get_recommended_transportation(category)
-    
-    # Mengambil rekomendasi tempat berdasarkan destinasi
-    recommended_places = get_recommended_places(destination)
-    # ────────────────────────────────────────────────────────
-
-    # ─── MENAMPILKAN HASIL ──────────────────────────────────
-    print_trip_summary(destination, country, days, budget, currency, travel_month, travel_style, total_cost)
-
-    print(f"Daily Budget               : {daily_budget:.2f} {currency}/day")
-    print(f"Trip Category              : {category}")
-    print(f"Recommended Transportation : {transportation}")
-
-    print("\n--- Recommended Places to Visit ---")
-    for place in recommended_places:
-        print(f"📍 {place}")
-
-    # ─── BONUS: MULTIPLE DESTINATIONS ───────────────────────
-    print("\n--- Perluas Rute Perjalanan Kamu ---")
-    destinations = [destination] 
-
-    while True:
-        place = input("Enter an additional destination (or type 'done' to finish): ").strip().title()
-        if place.lower() == 'done':
-            break
-        destinations.append(place)
-
-    print("\nYour full trip destinations are:")
-    for dest in destinations:
-        print(f"✈️  {dest}")
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+from api import assistant, auth, catalog, conversations, trips
+from core import config
+from database import init_db
 
-@app.get("/")
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    init_db()  # create tables on startup
+    yield
+
+
+app = FastAPI(
+    title="Jalan-Jalan AI API",
+    description="AI-powered travel planner — FastAPI + PostgreSQL + Amazon Bedrock.",
+    version="1.0.0",
+    lifespan=lifespan,
+)
+
+# Allow the Next.js frontend (localhost:3000 in dev, Vercel in production).
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=config.CORS_ORIGINS,
+    allow_origin_regex=config.CORS_ORIGIN_REGEX,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.get("/", tags=["General"])
 def home():
-    return {"message": "Welcome to KelanaAI"}
+    return {"message": "Welcome to Jalan-Jalan AI"}
 
-# 1. Tambahkan parameter 'travel_style' pada model Pydantic untuk request POST
-class TripRequest(BaseModel):
-    destination: str
-    days: int
-    budget: float
-    travel_style: str | None = None  # Menambahkan input travel_style opsional
 
-# 2. Perbarui endpoint POST /api/v1/trips (menggunakan logika transportasi)
-@app.post("/api/v1/trips")
-def create_trip(request: TripRequest):
-    daily_budget = calculate_daily_budget(request.budget, request.days)
-    category = get_trip_category(request.budget)
-    
-    # Menentukan rekomendasi transportasi berdasarkan travel_style
-    # (Kamu bisa menyesuaikan fungsi ini dengan aturan bisnis dari Sesi 2)
-    transport = "Flight" # Default
-    if request.travel_style == "Family":
-        transport = "Train"
-    elif request.travel_style == "Solo":
-        transport = "Bus"
+@app.get("/health", tags=["General"])
+def health():
+    return {"status": "OK"}
 
-    return {
-        "destination": request.destination,
-        "budget": request.budget,
-        "daily_budget": daily_budget,
-        "category": category,
-        "recommendation_transport": transport, # Menambahkan respons transport
-    }
 
-# 3. Mengerjakan BONUS: Endpoint GET /api/v1/trip-categories
-@app.get("/api/v1/trip-categories")
-def get_trip_categories():
-    return [
-        "Backpacker",
-        "Standard",
-        "Luxury"
-    ]
-
-@app.get("/api/v1/recommendations")
-def get_recommendations():
-    return ["Tokyo Tower", "Mount Fuji", "Shibuya"]
-
-@app.get("/api/v1/transportations")
-def get_transportations():
-    return ["Bus", "Train", "Flight"]
-
-if __name__ == "__main__":
-    main()
+app.include_router(auth.router)
+app.include_router(trips.router)
+app.include_router(catalog.router)
+app.include_router(assistant.router)
+app.include_router(conversations.router)
